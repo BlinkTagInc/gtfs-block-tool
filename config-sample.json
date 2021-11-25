@@ -1,0 +1,9 @@
+{
+  "agencies": [
+    {
+      "agency_key": "my-agency-name",
+      "url": "~/path/to/my/gtfs"
+    }
+  ],
+  "sqlitePath": "/tmp/gtfs"
+}

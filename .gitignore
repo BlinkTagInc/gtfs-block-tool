@@ -1,0 +1,8 @@
+node_modules
+output
+/config*
+!config-sample.json
+
+.git
+.DS_Store
+.vscode
