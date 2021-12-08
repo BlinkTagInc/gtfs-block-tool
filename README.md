@@ -29,6 +29,14 @@ Block ID,Trip ID,Days,Departure Location,Arrival Location,Departure Time,Arrival
 
     npm install
 
+## Setup
+
+GTFS Block Tool reads its configuration from a JSON file. To get started, copy `config-sample.json` to `config.json` and then add your project's configuration to `config.json`.
+
+    cp config-sample.json config.json
+
+Ensure that your config.json is [valid JSON](https://jsonformatter.curiousconcept.com) before proceeding.
+
 ## Quick Start
 
 ### Command-line example
