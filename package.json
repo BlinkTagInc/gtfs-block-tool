@@ -2,18 +2,16 @@
   "name": "gtfs-block-tool",
   "version": "0.1.0",
   "private": false,
-  "description": "Output a list of departure times for each block_id in GTFS",
+  "description": "Generate CSV of transit departure times organized by block_id in GTFS.",
   "keywords": [
     "transit",
     "gtfs",
     "transportation",
     "timetables"
   ],
-
   "license": "MIT",
   "author": "Brendan Nee <brendan@blinktag.com>",
-  "contributors": [
-  ],
+  "contributors": [],
   "type": "module",
   "main": "index.js",
   "bin": {
@@ -31,6 +29,7 @@
     "moment": "^2.29.4",
     "pretty-error": "^4.0.0",
     "sanitize-filename": "^1.6.3",
+    "sqlstring": "^2.3.3",
     "timer-machine": "^1.1.0",
     "untildify": "^4.0.0",
     "yargs": "^17.6.0"

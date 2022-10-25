@@ -37,6 +37,92 @@ GTFS Block Tool reads its configuration from a JSON file. To get started, copy `
 
 Ensure that your config.json is [valid JSON](https://jsonformatter.curiousconcept.com) before proceeding.
 
+All files starting with `config*.json` are .gitignored - so you can create multiple configuration files such as `config-caltrain.json`.
+
+| option | type | description |
+| ------ | ---- | ----------- |
+| [`agencies`](#agencies) | array | An array of GTFS files to be imported. |
+| [`date`](#date) | string | The date to use for finding trips for the chart. |
+| [`timeFormat`](#timeformat) | string | A string defining time format in moment.js style. |
+
+### agencies
+
+{Array} Specify the GTFS files to be imported in an `agencies` array. GTFS files can be imported via a `url` or a local `path`.
+
+Each file needs an `agency_key`, a short name you create that is specific to that GTFS file. For GTFS files that contain more than one agency, you only need to list each GTFS file once in the `agencies` array, not once per agency that it contains.
+
+To find an agency's GTFS file, visit [transitfeeds.com](http://transitfeeds.com). You can use the
+URL from the agency's website or you can use a URL generated from the transitfeeds.com
+API along with your API token.
+
+* Specify a download URL:
+```json
+{
+  "agencies": [
+    {
+      "agency_key": "county-connection",
+      "url": "http://cccta.org/GTFS/google_transit.zip"
+    }
+  ]
+}
+```
+
+* Specify a path to a zipped GTFS file:
+```json
+{
+  "agencies": [
+    {
+      "agency_key": "myAgency",
+      "path": "/path/to/the/gtfs.zip"
+    }
+  ]
+}
+```
+* Specify a path to an unzipped GTFS file:
+```json
+{
+  "agencies": [
+    {
+      "agency_key": "myAgency",
+      "path": "/path/to/the/unzipped/gtfs/"
+    }
+  ]
+}
+```
+
+* Exclude files - if you don't want all GTFS files to be imported, you can specify an array of files to exclude.
+
+```json
+{
+  "agencies": [
+    {
+      "agency_key": "myAgency",
+      "path": "/path/to/the/unzipped/gtfs/",
+      "exclude": [
+        "shapes",
+        "stops"
+      ]
+    }
+  ]
+}
+```
+
+### date
+
+{String} The date to use for generating blocks in YYYYMMDD format. Blocks will be generated for all calendars in calendar.txt that overlap with this date. So if a date specified is a weekday, weekend blocks will be generated as well for all calendar.txt entries that overlap the date specified. Defaults to today's date.
+
+```json
+"date": "20200505"
+```
+
+### timeFormat​
+
+{String} A string defining time format using moment.js tokens. [See full list of formatting options](https://momentjs.com/docs/#/displaying/format/). Defaults to HH:mm:ss which yields "13:14:30".
+
+```json
+"timeFormat": "HH:mm:ss"
+```
+
 ## Quick Start
 
 ### Command-line example

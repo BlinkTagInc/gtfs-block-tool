@@ -5,6 +5,7 @@
       "url": "~/path/to/my/gtfs"
     }
   ],
+  "date": "20221024",
   "sqlitePath": "/tmp/gtfs",
   "timeFormat": "HH:mm:ss"
 }
