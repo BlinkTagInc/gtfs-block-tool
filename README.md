@@ -1,3 +1,11 @@
+<p align="center">
+  <a href="https://www.npmjs.com/package/gtfs-block-tool" rel="nofollow"><img src="https://img.shields.io/npm/v/gtfs-block-tool.svg?style=flat" style="max-width: 100%;"></a>
+  <a href="https://www.npmjs.com/package/gtfs-block-tool" rel="nofollow"><img src="https://img.shields.io/npm/dm/gtfs-block-tool.svg?style=flat" style="max-width: 100%;"></a>
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
+  <br /><br />
+  <a href="https://nodei.co/npm/gtfs-block-tool/" rel="nofollow"><img src="https://nodei.co/npm/gtfs-block-tool.png?downloads=true" alt="NPM" style="max-width: 100%;"></a>
+</p>
+
 # GTFS Block Tool
 
 This tool reads transit data in [GTFS format](https://developers.google.com/transit/gtfs/) and outputs a CSV file of all trip segments sorted by block and their departure times.
