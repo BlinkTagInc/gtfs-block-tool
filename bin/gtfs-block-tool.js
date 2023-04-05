@@ -5,7 +5,7 @@ import { hideBin } from 'yargs/helpers';
 
 import { getConfig } from '../lib/file-utils.js';
 import { formatError } from '../lib/log-utils.js';
-import blockIdTool from '../index.js';
+import gtfsBlockTool from '../index.js';
 
 const { argv } = yargs(hideBin(process.argv))
   .usage('Usage: $0 --configPath ./config.json')
@@ -32,7 +32,7 @@ const handleError = (error) => {
 
 const setupImport = async () => {
   const config = await getConfig(argv);
-  await blockIdTool(config);
+  await gtfsBlockTool(config);
   process.exit();
 };
 
