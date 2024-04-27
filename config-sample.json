@@ -6,6 +6,7 @@
     }
   ],
   "date": "20221024",
+  "includeDeadheads": true,
   "sqlitePath": "/tmp/gtfs",
   "timeFormat": "HH:mm:ss"
 }
