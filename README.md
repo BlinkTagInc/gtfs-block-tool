@@ -51,6 +51,7 @@ All files starting with `config*.json` are .gitignored - so you can create multi
 | ------ | ---- | ----------- |
 | [`agencies`](#agencies) | array | An array of GTFS files to be imported. |
 | [`date`](#date) | string | The date to use for finding trips for the chart. |
+| [`includeDeadheads`](#includedeadheads) | boolean | Whether or not to include deadhead trips from ODS format. |
 | [`timeFormat`](#timeformat) | string | A string defining time format in moment.js style. |
 
 ### agencies
@@ -121,6 +122,14 @@ API along with your API token.
 
 ```json
 "date": "20200505"
+```
+
+### includeDeadheads
+
+{Boolean} Whether or not to include deadheads from ODS data. Defaults to true.
+
+```json
+"includeDeadheads": true
 ```
 
 ### timeFormat​
