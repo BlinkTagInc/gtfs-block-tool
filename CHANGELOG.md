@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deadheads from ODS
 - direction_id, route_id, trip_headsign, stop_headsign as fields
 - includeDeadheads config option
+- Convert to typescript
 
 ### Updated
 - Dependency updates

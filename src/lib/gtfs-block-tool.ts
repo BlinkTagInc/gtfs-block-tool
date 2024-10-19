@@ -1,7 +1,15 @@
 import path from 'node:path'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { sortBy } from 'lodash-es'
-import { openDb, importGtfs, getStoptimes, getDeadheadTimes } from 'gtfs'
+import {
+  openDb,
+  importGtfs,
+  getStoptimes,
+  getDeadheadTimes,
+  Config,
+  ConfigAgency,
+  Calendar,
+} from 'gtfs'
 import sanitize from 'sanitize-filename'
 import Timer from 'timer-machine'
 
@@ -12,15 +20,15 @@ import {
   logError,
   progressBar,
   logStats,
-} from './log-utils.js'
-import { fromGTFSTime, generateCSV, setDefaultConfig } from './utils.js'
+} from './log-utils.ts'
+import { fromGTFSTime, generateCSV, setDefaultConfig } from './utils.ts'
 import { formatTripSegments } from './formatters.js'
 import moment from 'moment'
 
 /*
  * GTFS Block Tool
  */
-const gtfsBlockTool = async (initialConfig) => {
+const gtfsBlockTool = async (initialConfig: Config) => {
   const config = setDefaultConfig(initialConfig)
   const timer = new Timer()
 
@@ -41,12 +49,18 @@ const gtfsBlockTool = async (initialConfig) => {
     await importGtfs(config)
   }
 
-  const agencyKey = config.agencies.map((agency) => agency.agency_key).join('-')
+  const agencyKey = config.agencies
+    .map((agency: ConfigAgency & { agency_key?: string }) => agency.agency_key)
+    .join('-')
   const exportPath = path.join(process.cwd(), 'output', sanitize(agencyKey))
   const outputStats = {
     trips: 0,
     tripSegments: 0,
     warnings: [],
+  } as {
+    trips: number
+    tripSegments: number
+    warnings: string[]
   }
 
   const calendars = db
@@ -63,7 +77,7 @@ const gtfsBlockTool = async (initialConfig) => {
     )
   }
 
-  const serviceIds = calendars.map((calendar) => calendar.service_id)
+  const serviceIds = calendars.map((calendar: Calendar) => calendar.service_id)
   const trips = db
     .prepare(
       `SELECT trip_id, direction_id, service_id, block_id, route_id, trip_headsign FROM trips where service_id IN (${serviceIds
@@ -120,10 +134,12 @@ const gtfsBlockTool = async (initialConfig) => {
 
       outputStats.trips += 1
 
-      bar.increment()
+      bar?.increment()
     } catch (error) {
-      outputStats.warnings.push(error.message)
-      bar.interrupt(error.message)
+      const errorMessage =
+        error instanceof Error ? error.message : String(error)
+      outputStats.warnings.push(errorMessage)
+      bar?.interrupt(errorMessage)
     }
   }
 
@@ -157,10 +173,12 @@ const gtfsBlockTool = async (initialConfig) => {
 
       outputStats.trips += 1
 
-      bar.increment()
-    } catch (error) {
-      outputStats.warnings.push(error.message)
-      bar.interrupt(error.message)
+      bar?.increment()
+    } catch (error: any) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error)
+      outputStats.warnings.push(errorMessage)
+      bar?.interrupt(errorMessage)
     }
   }
   /* eslint-enable no-await-in-loop */

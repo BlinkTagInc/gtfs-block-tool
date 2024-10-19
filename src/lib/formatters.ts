@@ -1,6 +1,6 @@
 import { getCalendars, getOpsLocations, getStops } from 'gtfs'
 import { uniq } from 'lodash-es'
-import { fromGTFSTime } from './utils.js'
+import { fromGTFSTime } from './utils.ts'
 
 /*
  * Format a calendar's list of days for display using abbreviated day names.

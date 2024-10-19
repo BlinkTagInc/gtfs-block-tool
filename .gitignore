@@ -1,8 +1,16 @@
-node_modules
-output
-/config*
-!config-sample.json
-
 .git
 .DS_Store
 .vscode
+
+# dependencies
+node_modules
+
+# output
+output
+
+# config files
+config*
+!config-sample*
+
+# Build files
+/dist
