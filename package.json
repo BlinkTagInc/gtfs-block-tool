@@ -1,6 +1,6 @@
 {
   "name": "gtfs-block-tool",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "description": "Generate CSV of transit departure times organized by block_id in GTFS.",
   "keywords": [
