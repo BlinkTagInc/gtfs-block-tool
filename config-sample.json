@@ -7,6 +7,7 @@
   ],
   "date": "20221024",
   "includeDeadheads": true,
+  "outputPath": "custom/output/path",
   "sqlitePath": "/tmp/gtfs",
   "timeFormat": "HH:mm:ss"
 }

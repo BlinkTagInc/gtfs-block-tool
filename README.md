@@ -57,12 +57,14 @@ Ensure that your config.json is [valid JSON](https://jsonformatter.curiousconcep
 
 All files starting with `config*.json` are .gitignored - so you can create multiple configuration files such as `config-caltrain.json`.
 
-| option | type | description |
-| ------ | ---- | ----------- |
-| [`agencies`](#agencies) | array | An array of GTFS files to be imported. |
-| [`date`](#date) | string | The date to use for generating blocks. |
-| [`includeDeadheads`](#includedeadheads) | boolean | Whether or not to include deadhead trips from ODS format. |
-| [`timeFormat`](#timeformat) | string | A string defining time format in moment.js style. |
+| option                                              | type    | description                                                                                  |
+| --------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------- |
+| [`agencies`](#agencies)                             | array   | An array of GTFS files to be imported.                                                       |
+| [`date`](#date)                                     | string  | The date to use for generating blocks.                                                       |
+| [`includeDeadheads`](#includedeadheads)             | boolean | Whether or not to include deadhead trips from ODS format.                                    |
+| [`outputPath`](#outputpath)                         | string  | The path to the folder to write the csv file to. Optional, defaults to `output/<agencyKey>`. |
+| [`overwriteExistingFiles`](#overwriteexistingfiles) | boolean | Whether or not to overwrite existing files in the `outputPath` directory.                    |
+| [`timeFormat`](#timeformat)                         | string  | A string defining time format in moment.js style.                                            |
 
 ### agencies
 
@@ -74,7 +76,8 @@ To find an agency's GTFS file, visit [transitfeeds.com](http://transitfeeds.com)
 URL from the agency's website or you can use a URL generated from the transitfeeds.com
 API along with your API token.
 
-* Specify a download URL:
+- Specify a download URL:
+
 ```json
 {
   "agencies": [
@@ -86,7 +89,8 @@ API along with your API token.
 }
 ```
 
-* Specify a path to a zipped GTFS file:
+- Specify a path to a zipped GTFS file:
+
 ```json
 {
   "agencies": [
@@ -97,7 +101,9 @@ API along with your API token.
   ]
 }
 ```
-* Specify a path to an unzipped GTFS file:
+
+- Specify a path to an unzipped GTFS file:
+
 ```json
 {
   "agencies": [
@@ -109,7 +115,7 @@ API along with your API token.
 }
 ```
 
-* Exclude files - if you don't want all GTFS files to be imported, you can specify an array of files to exclude.
+- Exclude files - if you don't want all GTFS files to be imported, you can specify an array of files to exclude.
 
 ```json
 {
@@ -117,10 +123,7 @@ API along with your API token.
     {
       "agency_key": "myAgency",
       "path": "/path/to/the/unzipped/gtfs/",
-      "exclude": [
-        "shapes",
-        "stops"
-      ]
+      "exclude": ["shapes", "stops"]
     }
   ]
 }
@@ -142,13 +145,28 @@ API along with your API token.
 "includeDeadheads": true
 ```
 
+### outputPath
+
+\{String\} The path to write the CSV file to. Optional, defaults to a folder named `output/<agencyKey>` in the current directory.
+
+```json
+"outputPath": "/path/to/output"
+```
+
+### overwriteExistingFiles
+
+\{Boolean\} Whether or not to overwrite existing files in the `outputPath` folder. Optional, defaults to `true`.
+
+````json
+"overwriteExistingFiles": true
+
 ### timeFormat​
 
 {String} A string defining time format using moment.js tokens. [See full list of formatting options](https://momentjs.com/docs/#/displaying/format/). Defaults to HH:mm:ss which yields "13:14:30".
 
 ```json
 "timeFormat": "HH:mm:ss"
-```
+````
 
 ## Quick Start
 

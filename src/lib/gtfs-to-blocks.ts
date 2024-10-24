@@ -1,5 +1,5 @@
-import path from 'node:path'
-import { mkdir, writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
+import { writeFile } from 'node:fs/promises'
 import { sortBy } from 'lodash-es'
 import {
   openDb,
@@ -18,6 +18,7 @@ import { progressBar, log, logStats } from './log-utils.ts'
 import { fromGTFSTime, generateCSV, setDefaultConfig } from './utils.ts'
 import { formatTripSegments } from './formatters.js'
 import moment from 'moment'
+import untildify from 'untildify'
 
 const gtfsToBlocks = async (initialConfig: Config) => {
   const config = setDefaultConfig(initialConfig)
@@ -39,7 +40,10 @@ const gtfsToBlocks = async (initialConfig: Config) => {
   const agencyKey = config.agencies
     .map((agency: ConfigAgency & { agency_key?: string }) => agency.agency_key)
     .join('-')
-  const exportPath = path.join(process.cwd(), 'output', sanitize(agencyKey))
+  const outputPath = config.outputPath
+    ? untildify(config.outputPath)
+    : join(process.cwd(), 'output', sanitize(agencyKey))
+
   const outputStats = {
     trips: 0,
     tripSegments: 0,
@@ -178,19 +182,18 @@ const gtfsToBlocks = async (initialConfig: Config) => {
 
   const formattedTripSegments = formatTripSegments(sortedTripSegments, config)
 
-  await prepDirectory(exportPath)
-  await mkdir(exportPath, { recursive: true })
+  await prepDirectory(outputPath, config)
   config.assetPath = '../'
 
   const csv = await generateCSV(formattedTripSegments)
-  const csvPath = path.join(exportPath, 'blocks.csv')
+  const csvPath = join(outputPath, 'blocks.csv')
   await writeFile(csvPath, csv)
 
   // Print stats
   log(config)(
     `${agencyKey}: block export for ${moment(config.date, 'YYYYMMDD').format(
       'MMM D, YYYY',
-    )} created at ${exportPath}`,
+    )} created at ${csvPath}`,
   )
 
   logStats(config)(outputStats)

@@ -1,5 +1,5 @@
-import path from 'node:path'
-import { readFile, rm, mkdir } from 'node:fs/promises'
+import { join, resolve } from 'node:path'
+import { access, mkdir, readdir, readFile, rm } from 'node:fs/promises'
 import untildify from 'untildify'
 
 /*
@@ -8,7 +8,7 @@ import untildify from 'untildify'
 export async function getConfig(argv) {
   try {
     const data = await readFile(
-      path.resolve(untildify(argv.configPath)),
+      resolve(untildify(argv.configPath)),
       'utf8',
     ).catch((error) => {
       console.error(
@@ -36,19 +36,36 @@ export async function getConfig(argv) {
 }
 
 /*
- * Prepare the specified directory for saving block CSV output by deleting everything.
+ * Prepare the outputPath directory for writing timetable files.
  */
-export async function prepDirectory(exportPath) {
-  await rm(exportPath, { recursive: true, force: true })
+export async function prepDirectory(outputPath: string, config) {
+  // Check if outputPath exists
   try {
-    await mkdir(exportPath, { recursive: true })
-  } catch (error) {
-    if (error.code === 'ENOENT') {
-      throw new Error(
-        `Unable to write to ${exportPath}. Try running this command from a writable directory.`,
-      )
-    }
+    await access(outputPath)
+  } catch (error: any) {
+    try {
+      await mkdir(outputPath, { recursive: true })
+    } catch (error: any) {
+      if (error?.code === 'ENOENT') {
+        throw new Error(
+          `Unable to write to ${outputPath}. Try running this command from a writable directory.`,
+        )
+      }
 
-    throw error
+      throw error
+    }
+  }
+
+  // Check if outputPath is empty
+  const files = await readdir(outputPath)
+  if (config.overwriteExistingFiles === false && files.length > 0) {
+    throw new Error(
+      `Output directory ${outputPath} is not empty. Please specify an empty directory.`,
+    )
+  }
+
+  // Delete all files in outputPath if `overwriteExistingFiles` is true
+  if (config.overwriteExistingFiles === true) {
+    await rm(join(outputPath, '*'), { recursive: true, force: true })
   }
 }

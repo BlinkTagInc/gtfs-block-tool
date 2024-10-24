@@ -9,6 +9,7 @@ export function setDefaultConfig(initialConfig) {
     timeFormat: 'HH:mm:ss',
     date: moment().format('YYYYMMDD'),
     includeDeadheads: true,
+    overwriteExistingFiles: true,
   }
 
   const config = Object.assign(defaults, initialConfig)
