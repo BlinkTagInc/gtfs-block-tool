@@ -1,14 +1,24 @@
 <p align="center">
+  ➡️
+  <a href="#example-output">Example Output</a> |
+  <a href="#installation">Installation</a> |
+  <a href="#configuration">Configuration</a>
+  ⬅️
+  <br /><br />
+  <img src="docs/images/gtfs-to-blocks-logo.svg" alt="GTFS-to-blocks" />
+  <br /><br />
   <a href="https://www.npmjs.com/package/gtfs-to-blocks" rel="nofollow"><img src="https://img.shields.io/npm/v/gtfs-to-blocks.svg?style=flat" style="max-width: 100%;"></a>
   <a href="https://www.npmjs.com/package/gtfs-to-blocks" rel="nofollow"><img src="https://img.shields.io/npm/dm/gtfs-to-blocks.svg?style=flat" style="max-width: 100%;"></a>
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
   <br /><br />
+  Reads transit data from GTFS and exports all trip segments sorted by block_id and their departure times in CSV format.
+  <br /><br />
   <a href="https://nodei.co/npm/gtfs-to-blocks/" rel="nofollow"><img src="https://nodei.co/npm/gtfs-to-blocks.png?downloads=true" alt="NPM" style="max-width: 100%;"></a>
 </p>
 
-# GTFS to Blocks
+<hr>
 
-Reads transit data in [GTFS format](https://developers.google.com/transit/gtfs/) and outputs a CSV file of all trip segments sorted by block_id and their departure times.
+Reads transit data in [GTFS format](https://developers.google.com/transit/gtfs/) and exports all trip segments sorted by block_id and their departure times in CSV format.
 
 ## Example Output
 
@@ -50,7 +60,7 @@ All files starting with `config*.json` are .gitignored - so you can create multi
 | option | type | description |
 | ------ | ---- | ----------- |
 | [`agencies`](#agencies) | array | An array of GTFS files to be imported. |
-| [`date`](#date) | string | The date to use for finding trips for the chart. |
+| [`date`](#date) | string | The date to use for generating blocks. |
 | [`includeDeadheads`](#includedeadheads) | boolean | Whether or not to include deadhead trips from ODS format. |
 | [`timeFormat`](#timeformat) | string | A string defining time format in moment.js style. |
 
