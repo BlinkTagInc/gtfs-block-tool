@@ -14,27 +14,14 @@ import sanitize from 'sanitize-filename'
 import Timer from 'timer-machine'
 
 import { prepDirectory } from './file-utils.js'
-import {
-  log,
-  logWarning,
-  logError,
-  progressBar,
-  logStats,
-} from './log-utils.ts'
+import { progressBar, log, logStats } from './log-utils.ts'
 import { fromGTFSTime, generateCSV, setDefaultConfig } from './utils.ts'
 import { formatTripSegments } from './formatters.js'
 import moment from 'moment'
 
-/*
- * GTFS Block Tool
- */
-const gtfsBlockTool = async (initialConfig: Config) => {
+const gtfsToBlocks = async (initialConfig: Config) => {
   const config = setDefaultConfig(initialConfig)
   const timer = new Timer()
-
-  config.log = log(config)
-  config.logWarning = logWarning(config)
-  config.logError = logError(config)
 
   timer.start()
 
@@ -200,20 +187,20 @@ const gtfsBlockTool = async (initialConfig: Config) => {
   await writeFile(csvPath, csv)
 
   // Print stats
-  config.log(
+  log(config)(
     `${agencyKey}: block export for ${moment(config.date, 'YYYYMMDD').format(
       'MMM D, YYYY',
     )} created at ${exportPath}`,
   )
 
-  logStats(outputStats, config)
+  logStats(config)(outputStats)
 
   const seconds = Math.round(timer.time() / 1000)
-  config.log(
+  log(config)(
     `${agencyKey}: block export generation required ${seconds} seconds`,
   )
 
   timer.stop()
 }
 
-export default gtfsBlockTool
+export default gtfsToBlocks

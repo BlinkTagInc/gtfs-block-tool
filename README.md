@@ -1,14 +1,14 @@
 <p align="center">
-  <a href="https://www.npmjs.com/package/gtfs-block-tool" rel="nofollow"><img src="https://img.shields.io/npm/v/gtfs-block-tool.svg?style=flat" style="max-width: 100%;"></a>
-  <a href="https://www.npmjs.com/package/gtfs-block-tool" rel="nofollow"><img src="https://img.shields.io/npm/dm/gtfs-block-tool.svg?style=flat" style="max-width: 100%;"></a>
+  <a href="https://www.npmjs.com/package/gtfs-to-blocks" rel="nofollow"><img src="https://img.shields.io/npm/v/gtfs-to-blocks.svg?style=flat" style="max-width: 100%;"></a>
+  <a href="https://www.npmjs.com/package/gtfs-to-blocks" rel="nofollow"><img src="https://img.shields.io/npm/dm/gtfs-to-blocks.svg?style=flat" style="max-width: 100%;"></a>
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
   <br /><br />
-  <a href="https://nodei.co/npm/gtfs-block-tool/" rel="nofollow"><img src="https://nodei.co/npm/gtfs-block-tool.png?downloads=true" alt="NPM" style="max-width: 100%;"></a>
+  <a href="https://nodei.co/npm/gtfs-to-blocks/" rel="nofollow"><img src="https://nodei.co/npm/gtfs-to-blocks.png?downloads=true" alt="NPM" style="max-width: 100%;"></a>
 </p>
 
-# GTFS Block Tool
+# GTFS to Blocks
 
-This tool reads transit data in [GTFS format](https://developers.google.com/transit/gtfs/) and outputs a CSV file of all trip segments sorted by block and their departure times.
+Reads transit data in [GTFS format](https://developers.google.com/transit/gtfs/) and outputs a CSV file of all trip segments sorted by block_id and their departure times.
 
 ## Example Output
 
@@ -39,7 +39,7 @@ Block ID,Trip ID,Days,Departure Location,Arrival Location,Departure Time,Arrival
 
 ## Setup
 
-GTFS Block Tool reads its configuration from a JSON file. To get started, copy `config-sample.json` to `config.json` and then add your project's configuration to `config.json`.
+Configuration is read a JSON file. To get started, copy `config-sample.json` to `config.json` and then add your project's configuration to `config.json`.
 
     cp config-sample.json config.json
 
@@ -144,4 +144,4 @@ API along with your API token.
 
 ### Command-line example
 
-    ./bin/gtfs-block-tool.js --configPath /path/to/your/custom-config.json
+    ./bin/gtfs-to-blocks.js --configPath /path/to/your/custom-config.json

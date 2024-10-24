@@ -1,1 +1,1 @@
-export { default } from './lib/gtfs-block-tool.js'
+export { default } from './lib/gtfs-to-blocks.js'

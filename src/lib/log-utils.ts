@@ -79,24 +79,26 @@ export function formatError(error) {
 /*
  * Print a table of stats to the console.
  */
-export function logStats(stats, config) {
+export function logStats(config) {
   // Hide stats table from custom log functions
   if (config.logFunction) {
-    return
+    return noop
   }
 
-  const table = new Table({
-    colWidths: [40, 20],
-    head: ['Item', 'Count'],
-  })
+  return (stats: any) => {
+    const table = new Table({
+      colWidths: [40, 20],
+      head: ['Item', 'Count'],
+    })
 
-  table.push(
-    ['🚍 Trips', stats.trips],
-    ['🕑 Trip Segments', stats.tripSegments],
-    ['⛔️ Warnings', stats.warnings.length],
-  )
+    table.push(
+      ['🚍 Trips', stats.trips],
+      ['🕑 Trip Segments', stats.tripSegments],
+      ['⛔️ Warnings', stats.warnings.length],
+    )
 
-  config.log(table.toString())
+    log(config)(table.toString())
+  }
 }
 
 /*
@@ -160,17 +162,17 @@ export function progressBar(formatString, barTotal, config) {
       .replace('{total}', barTotal)
       .replace('{bar}', generateProgressBarString(barTotal, barProgress))
 
-  config.log(renderProgressString(), true)
+  log(config)(renderProgressString(), true)
 
   return {
     interrupt(text) {
       // Log two lines to avoid overwrite by progress bar
-      config.logWarning(text)
-      config.logWarning('')
+      logWarning(config)(text)
+      logWarning(config)('')
     },
     increment() {
       barProgress += 1
-      config.log(renderProgressString(), true)
+      log(config)(renderProgressString(), true)
     },
   }
 }

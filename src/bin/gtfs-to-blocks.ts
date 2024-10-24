@@ -5,7 +5,7 @@ import { hideBin } from 'yargs/helpers'
 
 import { getConfig } from '../lib/file-utils.ts'
 import { formatError } from '../lib/log-utils.ts'
-import gtfsBlockTool from '../index.ts'
+import gtfsToBlocks from '../index.ts'
 
 const { argv } = yargs(hideBin(process.argv))
   .usage('Usage: $0 --configPath ./config.json')
@@ -32,7 +32,7 @@ const handleError = (error: any) => {
 
 const setupImport = async () => {
   const config = await getConfig(argv)
-  await gtfsBlockTool(config)
+  await gtfsToBlocks(config)
   process.exit()
 }
 
