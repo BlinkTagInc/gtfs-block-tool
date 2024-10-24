@@ -1,6 +1,7 @@
 <p align="center">
   ➡️
   <a href="#example-output">Example Output</a> |
+  <a href="#online-version">Online Version</a> |
   <a href="#installation">Installation</a> |
   <a href="#configuration">Configuration</a>
   ⬅️
@@ -18,7 +19,11 @@
 
 <hr>
 
-Reads transit data in [GTFS format](https://developers.google.com/transit/gtfs/) and exports all trip segments sorted by block_id and their departure times in CSV format.
+GTFS-to-blocks exports all trip segments sorted by block_id and their departure times to a CSV file.
+          
+What is a block? A block is a group of trips that are part of the same transit service usually operated by a single vehicle. Two trips which overlap in time can&apos;t be part of the same block as a vehicle can only operate one trip at a time.
+          
+This tool is useful for auditing all blocks for a specific day. By reviewing trips grouped by block in chronological order, you can ensure that no trips overlap for a specific block and find gaps where additional trips could be added.
 
 ## Example Output
 
@@ -42,6 +47,12 @@ Block ID,Trip ID,Days,Departure Location,Arrival Location,Departure Time,Arrival
 2,t_1993271_b_33130_tn_0,Mon-Fri,Main Street Alameda Ferry Terminal,Oakland Ferry Terminal,11:45:00,11:55:00
 2,t_1962159_b_33130_tn_0,Mon-Fri,Oakland Ferry Terminal,San Francisco Ferry Building Gate G,12:05:00,12:30:00
 ```
+
+## Online Version
+
+You can either run gtfs-to-blocks as a command-line tool (see below) or you can use the [online version](https://blocks.blinktag.com). The online version allows you to use it entirely within your browser - no downloads or command line necessary. It is limited to smaller GTFS files.
+
+[blocks.blinktag.com](https://blocks.blinktag.com)
 
 ## Installation
 
