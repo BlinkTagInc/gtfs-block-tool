@@ -201,6 +201,8 @@ const gtfsToBlocks = async (initialConfig: Config) => {
   )
 
   timer.stop()
+
+  return csvPath
 }
 
 export default gtfsToBlocks
